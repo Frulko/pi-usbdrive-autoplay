@@ -12,14 +12,16 @@ class USBDetector():
         thread = threading.Thread(target=self._work)
         thread.daemon = True
         thread.start()
-        self.callback = callback
+        self.callbackMount = callbackMount
+        self.callbackUMount = callbackUMount
 
     def on_created(self):
       logging.info("on created")
+      self.callbackMount()
 
     def on_deleted(self):
       logging.info("on delete")
-      self.callback()
+      self.callbackUMount()
  
     def _work(self):
         ''' Runs the actual loop to detect the events '''
@@ -29,9 +31,9 @@ class USBDetector():
         # this is module level logger, can be ignored
         logging.info("Starting to monitor for usb")
         self.monitor.start()
-        self.monitor.
         for device in iter(self.monitor.poll, None):
             logging.info("Got USB event: %s", device)
+            print("  {}: {}".format(device.get('DEVNAME'), device.get('DEVLINKS')))
             if device.action == 'add':
                 # some function to run on insertion of usb
                 self.on_created()

@@ -49,7 +49,7 @@ def main():
     logger.debug(', '.join(sys.argv))
     time.sleep(1)
     logger.debug("trying")
-    process = subprocess.call(['exec', 'omxplayer', '-b', '--loop', '/media/usb1/aspirateur_musique_the_end.mp4'],stdout=subprocess.PIPE)
+    process = subprocess.call(['omxplayer', '-b', '--loop', '/media/usb1/aspirateur_musique_the_end.mp4'],stdout=subprocess.PIPE)
     # process = subprocess.call(["python", "timer.py"], stdout=subprocess.PIPE)
     atexit.register(clean_up, process)  
     logger.debug(process.pid)
